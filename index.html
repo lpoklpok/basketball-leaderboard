@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Basketball Leaderboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f8f8f8; }
+    table { width: 60%; margin: 50px auto; border-collapse: collapse; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+    th { background-color: #333; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+  </style>
+</head>
+<body>
+  <h1 style="text-align:center;">🏀 Basketball Leaderboard</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Player</th>
+        <th>Points</th>
+      </tr>
+    </thead>
+    <tbody id="leaderboard"></tbody>
+  </table>
+
+  <script>
+    // List of players and scores
+    const players = [
+      { name: "Kevin", points: 45 },
+      { name: "Chris", points: 38 },
+      { name: "Mike", points: 52 }
+    ];
+
+    // Sort by highest points
+    players.sort((a, b) => b.points - a.points);
+
+    // Insert rows into the table
+    const tbody = document.getElementById("leaderboard");
+    players.forEach((p, i) => {
+      let row = `<tr><td>${i + 1}</td><td>${p.name}</td><td>${p.points}</td></tr>`;
+      tbody.innerHTML += row;
+    });
+  </script>
+</body>
+</html>
