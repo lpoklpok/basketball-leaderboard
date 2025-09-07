@@ -3,47 +3,96 @@
 <head>
   <title>Basketball Leaderboard</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f8f8f8; }
-    table { width: 60%; margin: 50px auto; border-collapse: collapse; }
+    body { font-family: Arial, sans-serif; background: #f8f8f8; margin: 0; }
+    .tab-container { display: flex; justify-content: center; background: #333; }
+    .tab {
+      padding: 14px 20px;
+      cursor: pointer;
+      color: white;
+      text-align: center;
+      flex: 1;
+    }
+    .tab.active { background: #555; }
+    .tab-content { display: none; padding: 20px; }
+    .tab-content.active { display: block; }
+    table { width: 60%; margin: 20px auto; border-collapse: collapse; }
     th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
     th { background-color: #333; color: white; }
     tr:nth-child(even) { background-color: #f2f2f2; }
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">🏀 Valorant Leaderboard</h1>
-  <table>
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Player</th>
-        <th>Elo</th>
-      </tr>
-    </thead>
-    <tbody id="leaderboard"></tbody>
-  </table>
+  <!-- Tabs -->
+  <div class="tab-container">
+    <div class="tab active" onclick="openTab('info')">General Info</div>
+    <div class="tab" onclick="openTab('leaderboard')">Leaderboard</div>
+  </div>
+
+  <!-- General Info Tab -->
+  <div id="info" class="tab-content active">
+    <h1 style="text-align:center;"> Valorant League Info</h1>
+    <p style="text-align:center; font-size:18px;">
+      Welcome to the league website! <br> <br>
+       This is a fun project I'm starting where we can keep track of player 1v1 Elos. <br> <br>
+        Rules are you do a 1v1 in Haven and go to C only with a Vandal. <br> <br>
+         First to 10 kills wins. <br> <br>
+          We will all start at 100 Elo and Elo changes based on win/loss and kill differential. 
+    </p>
+  </div>
+
+  <!-- Leaderboard Tab -->
+  <div id="leaderboard" class="tab-content">
+    <h1 style="text-align:center;">Valorant 1v1 Leaderboard</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Elo</th>
+          <th>Wins</th>
+          <th>Losses</th>
+          <th>PlusMinus</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body"></tbody>
+    </table>
+  </div>
 
   <script>
-    // List of players and scores
+    // Tabs
+    function openTab(tabId) {
+      document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+      document.getElementById(tabId).classList.add("active");
+      event.target.classList.add("active");
+    }
+
+    // Player data
     const players = [
-      { name: "Kevin", Elo: 45 },
-      { name: "Chris", Elo: 38 },
-      { name: "Edward", Elo: 100 },
-      { name: "Osmond", Elo: 75 },
-      { name: "Charles", Elo: 30 },
-      { name: "Dylan", Elo: 0 }
-      
+      { name: "Kevin", Elo: 100, Wins: 0, Losses: 0, PlusMinus: 0 },
+      { name: "Chris", Elo: 100, Wins: 0, Losses: 0, PlusMinus: 0 },
+      { name: "Edward", Elo: 100, Wins: 0, Losses: 0, PlusMinus: 0 },
+      { name: "Osmond", Elo: 100, Wins: 0, Losses: 0, PlusMinus: 0 },
+      { name: "Charles", Elo: 100, Wins: 0, Losses: 0, PlusMinus: 0 },
+      { name: "Dylan", Elo: 100, Wins: 0, Losses: 0, PlusMinus: 0 }
     ];
 
-    // Sort by highest points
+    // Sort by Elo
     players.sort((a, b) => b.Elo - a.Elo);
 
-    // Insert rows into the table
-    const tbody = document.getElementById("leaderboard");
+    // Fill leaderboard
+    const tbody = document.getElementById("leaderboard-body");
     players.forEach((p, i) => {
-      let row = `<tr><td>${i + 1}</td><td>${p.name}</td><td>${p.Elo}</td></tr>`;
+      let row = `
+        <tr>
+          <td>${i + 1}</td>
+          <td>${p.name}</td>
+          <td>${p.Elo}</td>
+          <td>${p.Wins}</td>
+          <td>${p.Losses}</td>
+          <td>${p.PlusMinus}</td>
+        </tr>`;
       tbody.innerHTML += row;
     });
   </script>
 </body>
-</html>
