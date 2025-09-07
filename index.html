@@ -11,13 +11,13 @@
   </style>
 </head>
 <body>
-  <h1 style="text-align:center;">🏀 Basketball Leaderboard</h1>
+  <h1 style="text-align:center;">🏀 Valorant Leaderboard</h1>
   <table>
     <thead>
       <tr>
         <th>Rank</th>
         <th>Player</th>
-        <th>Points</th>
+        <th>Elo</th>
       </tr>
     </thead>
     <tbody id="leaderboard"></tbody>
@@ -26,18 +26,22 @@
   <script>
     // List of players and scores
     const players = [
-      { name: "Kevin", points: 45 },
-      { name: "Chris", points: 38 },
-      { name: "Mike", points: 52 }
+      { name: "Kevin", Elo: 45 },
+      { name: "Chris", Elo: 38 },
+      { name: "Edward", Elo: 100 },
+      { name: "Osmond", Elo: 75 },
+      { name: "Charles", Elo: 30 },
+      { name: "Dylan", Elo: 0 }
+      
     ];
 
     // Sort by highest points
-    players.sort((a, b) => b.points - a.points);
+    players.sort((a, b) => b.Elo - a.Elo);
 
     // Insert rows into the table
     const tbody = document.getElementById("leaderboard");
     players.forEach((p, i) => {
-      let row = `<tr><td>${i + 1}</td><td>${p.name}</td><td>${p.points}</td></tr>`;
+      let row = `<tr><td>${i + 1}</td><td>${p.name}</td><td>${p.Elo}</td></tr>`;
       tbody.innerHTML += row;
     });
   </script>
